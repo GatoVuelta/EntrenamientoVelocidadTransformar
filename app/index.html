@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/css/uikit.min.css" />
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.1/dist/js/uikit-icons.min.js"></script> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrenamiento Velocidad Transformar</title>
+    <!-- style.scss -->
+    <link rel="stylesheet" href="style.scss" />
+  </head>
+  <body>
+    <div id="app">
+      <h2 class="uk-text-center uk-text-bold uk-light">Entrenamiento de Velocidad para el test Transformar</h2>
+      <div class="uk-margin-small uk-light">
+        <input class="uk-checkbox" type="checkbox" id="check-opciones" checked />
+        <label class="uk-form-label" for="check-opciones">Mostrar opciones</label>
+      </div>
+      <div class="uk-flex uk-flex-wrap uk-flex-center uk-flex-middle" style="gap: 20px">
+        <div class="uk-light opciones uk-flex" style="gap: 15px" id="opciones-ctn">
+          <div>
+            <label class="uk-form-label form-label">Opciones</label>
+            <form class="opciones uk-disabled">
+              <label class="uk-form-label form-label two">N° de preguntas por bloque</label>
+              <!-- Verbal -->
+              <div class="uk-margin-small">
+                <label class="uk-form-label" for="select-n-verbal">Verbal</label>
+                <select class="uk-select uk-form-small" id="select-n-verbal">
+                  <option>20</option>
+                  <option>30</option>
+                  <option selected>40</option>
+                </select>
+              </div>
+              <!-- Lógico -->
+              <div class="uk-margin-small">
+                <label class="uk-form-label" for="select-n-logico">Lógico</label>
+                <select class="uk-select uk-form-small uk-light" id="select-n-logico">
+                  <option>20</option>
+                  <option>30</option>
+                  <option selected>40</option>
+                </select>
+              </div>
+              <!-- Numérico -->
+              <div class="uk-margin-small">
+                <label class="uk-form-label" for="select-n-numerico">Numérico</label>
+                <select class="uk-select uk-form-small" id="select-n-numerico">
+                  <option>20</option>
+                  <option>30</option>
+                  <option selected>40</option>
+                </select>
+              </div>
+              <!-- Atención y Concentración -->
+              <div class="uk-margin-small">
+                <label class="uk-form-label" for="select-n-atencion">Atención y Concentración</label>
+                <select class="uk-select uk-form-small" id="select-n-atencion">
+                  <option>20</option>
+                  <option>30</option>
+                  <option selected>40</option>
+                </select>
+              </div>
+            </form>
+          </div>
+          <div>
+            <form class="opciones">
+              <label class="uk-form-label form-label two">Sonido</label>
+              <div class="uk-margin-small">
+                <input class="uk-checkbox" type="checkbox" id="check-sonido-segundos" checked />
+                <label class="uk-form-label" for="check-sonido-segundos"> Paso de segundos</label>
+              </div>
+              <div class="uk-margin-small">
+                <input class="uk-checkbox" type="checkbox" id="check-sonido-usegundos" checked />
+                <label class="uk-form-label" for="check-sonido-usegundos"> Notificación últimos segundos</label>
+              </div>
+              <div class="uk-margin-small uk-disabled">
+                <input class="uk-checkbox" type="checkbox" id="check-sonido-retraso" />
+                <label class="uk-form-label" for="check-sonido-retraso"> Notificación de retraso</label>
+              </div>
+              <div class="uk-margin-small">
+                <label class="uk-form-label" for="volume">Volumen</label>
+                <input class="uk-range" type="range" id="volume" min="0" max="1" step="0.1" value="1" />
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="uk-light opciones uk-width-3-4@s uk-width-auto@m">
+          <label class="uk-form-label form-label">Iniciar/Parar</label>
+          <p class="uk-margin-remove">
+            <h5 class="uk-text-bold uk-margin-remove">Resumen:</h5>
+            <span class="uk-text-bold" id="n_preguntas"><span id="count-totalquestions">160</span></span><span> preguntas en total</span><br>
+            <span class="uk-text-bold" id="n_tiempo">60</span><span> minutos</span>
+          </p>
+          <div class="uk-margin-small uk-light">
+            <input class="uk-checkbox" type="checkbox" id="check-estricto" />
+            <label class="uk-form-label" for="check-estricto">Modo estricto <span uk-icon="icon: question; ratio: 0.8" id="help-estricto"> </span></label>
+          </div>
+          <div class="uk-margin-small uk-flex uk-flex-column" style="gap: 10px">
+            <button class="uk-button uk-button-primary" id="btn-start">Iniciar</button>
+            <button class="uk-button uk-button-default uk-disabled" id="btn-pause">Pausar</button>
+            <button class="uk-button uk-button-danger uk-disabled" id="btn-stop">Terminar</button>
+          </div>
+        </div>
+        <div class="test">
+          <p class="uk-margin-bottom uk-text-center uk-text-bold">
+            <span class="uk-text-warning" id="test-bloque-a">Bloque actual:</span>
+            <span class="" id="test-bloque">~</span>
+          </p>
+          <div class="circle">
+            <div class="percent uk-light">
+              <svg>
+                <!-- Circle outside -->
+                <g class="circle_ total">
+                  <circle cx="105" cy="105" r="100"/>
+                  <circle cx="105" cy="105" r="100" style="stroke: #1e87f0; stroke-opacity: 0.3" class="s"/>
+                  <circle cx="105" cy="105" r="100" style="stroke: #1e87f0;" class="a"/>
+                </g>
+                <!-- Circle middle -->
+                <g class="circle_ bloque">
+                  <circle cx="105" cy="105" r="70"/>
+                  <circle cx="105" cy="105" r="70" style="stroke: #faa05a; stroke-opacity: 0.3" class="s"/>
+                  <circle cx="105" cy="105" r="70" style="stroke: #faa05a;" class="a"/>
+                </g>
+                <!-- Circle inside -->
+                <g class="circle_ pregunta">
+                  <circle class="no-transition" cx="105" cy="105" r="40"/>
+                  <circle class="no-transition a" cx="105" cy="105" r="40" style="stroke: #f0506e;"/>
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div class="uk-flex uk-flex-center uk-margin-small-top">
+            <p class="uk-flex uk-flex-left uk-flex-column uk-margin-remove-bottom" style="gap: 0  px">
+              <span class="legend uk-flex uk-flex-middle" style="gap: 6px">
+                <span class="icon total"></span> <span class="icon block"></span>
+                <span class="uk-text-small"> Rendimiento actual </span>
+              </span>
+              <span class="legend uk-flex uk-flex-middle" style="gap: 6px">
+                <span class="icon total dimmed"></span> <span class="icon block dimmed"></span>
+                <span class="uk-text-small"> Rendimiento óptimo </span>
+              </span>
+            </p>
+          </div>
+          <div class="uk-text-center uk-margin-small-top">
+            <p class="uk-flex uk-flex-center uk-flex-middle uk-margin-remove-vertical" style="gap: 5px">
+              <span class="uk-label">Total</span> <span class="uk-text-large time total"> 60:00 </span>
+            </p>
+            <p class="uk-flex uk-flex-center uk-flex-middle uk-margin-remove-vertical" style="gap: 5px">
+              <span class="uk-label uk-label-warning">Bloque <span id="count-currentblock">~</span>/4</span> <span class="uk-text-large time bloque"> 15:00 </span>
+            </p>
+            <p class="uk-flex uk-flex-center uk-flex-middle uk-margin-remove-top" style="gap: 5px">
+              <span class="uk-label uk-label-danger">Pregunta <span id="count-currentquestion">~</span>/<span id="count-currentblockquestions">~</span></span>
+              <span class="uk-text-large time pregunta"> 00:22:5 </span>
+            </p>
+            <button class="uk-button pregunta uk-disabled" id="btn-next">
+              <span><span class="text">Siguiente pregunta</span> (</span><svg class="icon" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="🔍-Product-Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="ic_fluent_spacebar_24_regular" fill="#fff" fill-rule="nonzero">
+                      <path d="M20.5,11 L20.5,13 C20.5,13.1380712 20.3880712,13.25 20.25,13.25 L3.75,13.25 C3.61192881,13.25 3.5,13.1380712 3.5,13 L3.5,11 C3.5,10.5857864 3.16421356,10.25 2.75,10.25 C2.33578644,10.25 2,10.5857864 2,11 C2,11.4444444 2,12.1111111 2,13 C2,13.9664983 2.78350169,14.75 3.75,14.75 L20.25,14.75 C21.2164983,14.75 22,13.9664983 22,13 L22,11 C22,10.5857864 21.6642136,10.25 21.25,10.25 C20.8357864,10.25 20.5,10.5857864 20.5,11 Z" id="🎨-Color"></path>
+                  </g>
+                </g>
+              </svg><span>)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <p class="uk-text-muted uk-text-center">
+        <span>v1.0 - AARZ </span><br>
+        <a href="https://github.com/GatoVuelta/EntrenamientoVelocidadTransformar"><span uk-icon="icon: github"></span> GitHub</a>
+      </p>
+    </div>
+    <script type="module" src="/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.15.5/dist/js/uikit-icons.min.js"></script>
+  </body>
+</html>
